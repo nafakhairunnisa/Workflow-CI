@@ -21,9 +21,6 @@ jobs:
         environment-file: MLProject/conda.yaml
         auto-activate-base: false
 
-    - name: Install Docker
-      uses: docker/setup-docker@v2
-
     - name: Run MLflow Project
       run: |
         cd MLProject
