@@ -39,9 +39,12 @@ jobs:
         RUN_ID=$(ls -t MLProject/mlruns/0 | head -n 1)
         echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
 
-    - name: Build Docker Model
-      if: ${{ steps.get_run_id.outputs.run_id != 'none' }}
+    - name: Build Docker image from MLflow model
+      if: ${{ steps.get_run_id.outputs.run_id != '' }}
+      shell: bash -l {0}
       run: |
+        cd MLProject
+        conda activate mlflow-env
         mlflow models build-docker \
           --model-uri runs:/${{ steps.get_run_id.outputs.run_id }}/model \
           --name behavior-classifier
