@@ -6,12 +6,22 @@ import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-from dagshub import auth, init
 import argparse
 
 load_dotenv()
-auth.add_app_token(os.getenv("DAGSHUB_TOKEN"))
-init(repo_owner='nafakhairunnisa', repo_name='Membangun_model', mlflow=True)
+
+try:
+    from dagshub import auth, init
+    dagshub_token = os.getenv("DAGSHUB_TOKEN")
+    if dagshub_token:
+        auth.add_app_token(dagshub_token)
+        init(repo_owner='nafakhairunnisa', repo_name='Membangun_model', mlflow=True)
+    else:
+        print("DAGSHUB_TOKEN not set, skipping DagsHub init.")
+except ImportError:
+    print("DagsHub not installed, skipping DagsHub integration.")
+except Exception as e:
+    print(f"Skipping DagsHub integration due to error: {e}")
 
 def load_data():
     data_dir = Path('personality_preprocessing')
@@ -40,7 +50,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', type=str, default='personality_preprocessing')
     args = parser.parse_args()
-    
+
     data_dir = Path(args.data_path)
 
     # Hyperparameter tuning
