@@ -11,4 +11,5 @@ dependencies:
     - scipy==1.15.3
     - python-dotenv
     - dagshub
+    - pandas
 name: mlflow-env
