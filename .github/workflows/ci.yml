@@ -22,9 +22,8 @@ jobs:
         auto-activate-base: false
 
     - name: Run MLflow Project
+      shell: bash -l {0}
       run: |
-        source ~/.bashrc
-        conda activate mlflow-env
         cd MLProject
         mlflow run .
 
