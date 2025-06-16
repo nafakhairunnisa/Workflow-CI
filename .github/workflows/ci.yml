@@ -23,6 +23,8 @@ jobs:
 
     - name: Run MLflow Project
       run: |
+        source ~/.bashrc
+        conda activate mlflow-env
         cd MLProject
         mlflow run .
 
