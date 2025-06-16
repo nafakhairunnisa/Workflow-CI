@@ -21,6 +21,9 @@ jobs:
         environment-file: MLProject/conda.yaml
         auto-activate-base: false
 
+    - name: Install Docker
+      uses: docker/setup-docker@v2
+
     - name: Run MLflow Project
       run: |
         cd MLProject
@@ -29,10 +32,26 @@ jobs:
     - name: Upload model artifact
       uses: actions/upload-artifact@v4
       with:
-        name: rf-model
+        name: behavior-classifier
         path: MLProject/mlruns
 
-    - name: Build Docker Image
+    - name: Get latest run_id
+      id: get_run_id
       run: |
-        cd MLProject
-        mlflow models build-docker -m runs:/<run_id>/model
+        RUN_ID=$(ls -t MLProject/mlruns/0 | head -n 1)
+        echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
+
+    - name: Build Docker Model
+      if: ${{ steps.get_run_id.outputs.run_id != 'none' }}
+      run: |
+        mlflow models build-docker \
+          --model-uri runs:/${{ steps.get_run_id.outputs.run_id }}/model \
+          --name behavior-classifier
+
+    - name: Login to Docker Hub
+      run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    - name: Push Docker Image
+      run: |
+        docker tag behavior-classifier:latest ${{ secrets.DOCKER_USERNAME }}/behavior-classifier:latest
+        docker push ${{ secrets.DOCKER_USERNAME }}/behavior-classifier:latest
