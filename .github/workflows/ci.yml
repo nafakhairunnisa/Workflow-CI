@@ -1,0 +1,38 @@
+name: CI MLflow
+
+on:
+  push:
+    paths:
+      - 'MLProject/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Setup Miniconda
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        activate-environment: mlflow-env
+        environment-file: MLProject/conda.yaml
+        auto-activate-base: false
+
+    - name: Run MLflow Project
+      run: |
+        cd MLProject
+        mlflow run .
+
+    - name: Upload model artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: rf-model
+        path: MLProject/mlruns
+
+    - name: Build Docker Image
+      run: |
+        cd MLProject
+        mlflow models build-docker -m runs:/<run_id>/model
