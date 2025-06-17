@@ -1,7 +1,8 @@
 import mlflow
-from sklearn.metrics import classification_report, roc_auc_score, f1_score
+from sklearn.metrics import classification_report, roc_auc_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
+import matplotlib.pyplot as plt
 import pandas as pd
 from pathlib import Path
 from dotenv import load_dotenv
@@ -10,6 +11,7 @@ import argparse
 
 load_dotenv()
 
+# DagsHub setup
 try:
     from dagshub import auth, init
     dagshub_token = os.getenv("DAGSHUB_TOKEN")
@@ -23,15 +25,15 @@ except ImportError:
 except Exception as e:
     print(f"Skipping DagsHub integration due to error: {e}")
 
-def load_data():
-    data_dir = Path('personality_preprocessing')
-    return (
-        pd.read_csv(data_dir/'X_train.csv'),
-        pd.read_csv(data_dir/'X_test.csv'),
-        pd.read_csv(data_dir/'y_train.csv').squeeze("columns"),
-        pd.read_csv(data_dir/'y_test.csv').squeeze("columns")
-    )
+# Load data function
+def load_data(data_dir):
+    X_train = pd.read_csv(data_dir / 'X_train.csv')
+    X_test  = pd.read_csv(data_dir / 'X_test.csv')
+    y_train = pd.read_csv(data_dir / 'y_train.csv').squeeze("columns")
+    y_test  = pd.read_csv(data_dir / 'y_test.csv').squeeze("columns")
+    return X_train, X_test, y_train, y_test
 
+# Log metrics function
 def log_metrics(y_true, y_pred):
     report = classification_report(y_true, y_pred, output_dict=True)
     metrics = {
@@ -45,13 +47,13 @@ def log_metrics(y_true, y_pred):
     mlflow.log_dict(report, "classification_report.json")
 
 if __name__ == "__main__":
-    X_train, X_test, y_train, y_test = load_data()
-
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', type=str, default='personality_preprocessing')
     args = parser.parse_args()
 
     data_dir = Path(args.data_path)
+
+    X_train, X_test, y_train, y_test = load_data(data_dir)
 
     # Hyperparameter tuning
     param_grid = {
@@ -76,3 +78,15 @@ if __name__ == "__main__":
         mlflow.sklearn.log_model(best_model, "model")
 
         print(f"Tuned RF - F1 Weighted: {f1_score(y_test, y_pred, average='weighted'):.4f}")
+
+        # log confusion matrix
+        cm = confusion_matrix(y_test, y_pred)
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm)
+        disp.plot(cmap='Blues')
+
+        plt.savefig("confusion_matrix.png")
+        plt.close()
+
+        mlflow.log_artifact("confusion_matrix.png")
+
+        print("Confusion matrix logged.")
