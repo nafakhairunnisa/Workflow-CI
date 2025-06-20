@@ -49,12 +49,6 @@ jobs:
         RUN_ID=$(ls -t MLProject/mlruns/0 | head -n 1)
         echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
 
-    - name: Install Git LFS
-      run: |
-        sudo apt-get update
-        sudo apt-get install git-lfs -y
-        git lfs install
-
     - name: Configure Git Identity
       run: |
         git config --global user.name "github-actions"
@@ -65,34 +59,52 @@ jobs:
         git remote -v
         git config --list
 
-    - name: Track and commit model to Github LFS branch
+    - name: Upload to GitHub branch
       if: ${{ steps.get_run_id.outputs.run_id != '' }}
       run: |
-        set -e  # ⛑️ Tambahan: hentikan job jika ada perintah gagal
+        set -e
 
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
-
-        # Track model files via LFS
-        git lfs track "model_artifacts/**/*.pkl"
-        echo "*.pkl" >> .gitattributes
 
         # Salin model dari mlruns ke folder baru
         mkdir -p model_artifacts
         cp -r MLProject/mlruns/0/${{ steps.get_run_id.outputs.run_id }}/artifacts/model model_artifacts/
 
-        git add .gitattributes
+        # Tambahkan dan commit model
         git add model_artifacts/
-        git commit -m "Add model to LFS from run ${{ steps.get_run_id.outputs.run_id }}"
+        git commit -m "Add model artifact from run ${{ steps.get_run_id.outputs.run_id }}" || echo "No changes to commit"
 
-        # Update remote dengan autentikasi token
+        # Update remote dengan token autentikasi
         git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
-        
-        # Hapus credential internal GitHub Actions (override)
-        git config --unset-all http.https://github.com/.extraheader
 
-        # Push ke branch baru
-        git push origin HEAD:lfs-model-${{ steps.get_run_id.outputs.run_id }}
+        # Hapus credential default yang mengganggu
+        git config --unset-all http.https://github.com/.extraheader || true
+
+        # Push ke branch baru (non-main)
+        git push origin HEAD:model-artifact-${{ steps.get_run_id.outputs.run_id }}
+
+    - name: Install GitHub CLI
+      run: sudo apt install gh -y
+      
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v6
+      with:
+        token: ${{ secrets.GH_TOKEN }}
+        commit-message: "Auto PR: Add model artifact from run ${{ steps.get_run_id.outputs.run_id }}"
+        title: "Auto PR: Model from run ${{ steps.get_run_id.outputs.run_id }}"
+        body: |
+          Model artifact hasil training MLflow otomatis.
+        base: main
+        branch: model-artifact-${{ steps.get_run_id.outputs.run_id }}
+
+    - name: Auto-merge Pull Request
+      if: steps.cpr.outputs.pull-request-number != ''
+      run: |
+        gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --auto --squash
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
     - name: Build Docker image
       if: ${{ steps.get_run_id.outputs.run_id != '' }}
