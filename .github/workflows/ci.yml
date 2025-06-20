@@ -68,14 +68,16 @@ jobs:
     - name: Track and commit model to Github LFS branch
       if: ${{ steps.get_run_id.outputs.run_id != '' }}
       run: |
+        set -e  # ⛑️ Tambahan: hentikan job jika ada perintah gagal
+
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
 
-        # Track model
+        # Track model files via LFS
         git lfs track "model_artifacts/**/*.pkl"
         echo "*.pkl" >> .gitattributes
 
-        # Salin model dari mlruns
+        # Salin model dari mlruns ke folder baru
         mkdir -p model_artifacts
         cp -r MLProject/mlruns/0/${{ steps.get_run_id.outputs.run_id }}/artifacts/model model_artifacts/
 
@@ -83,8 +85,10 @@ jobs:
         git add model_artifacts/
         git commit -m "Add model to LFS from run ${{ steps.get_run_id.outputs.run_id }}"
 
-        # Push ke branch baru
+        # Update remote dengan autentikasi token
         git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+
+        # Push ke branch baru
         git push origin HEAD:lfs-model-${{ steps.get_run_id.outputs.run_id }}
 
     - name: Build Docker image
