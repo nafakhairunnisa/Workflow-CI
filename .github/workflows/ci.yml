@@ -49,12 +49,38 @@ jobs:
         RUN_ID=$(ls -t MLProject/mlruns/0 | head -n 1)
         echo "run_id=$RUN_ID" >> $GITHUB_OUTPUT
 
-    - name: Upload to GitHub LFS
+    - name: Install Git LFS
       run: |
+        sudo apt-get update
+        sudo apt-get install git-lfs -y
         git lfs install
-        git add MLProject/mlruns
-        git commit -m "Upload model artifacts to GitHub LFS [skip ci]" || echo "No changes to commit"
-        git push origin main || echo "No changes to push"
+
+    - name: Configure Git Identity
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+
+    - name: Track and commit model to Github LFS branch
+      if: ${{ steps.get_run_id.outputs.run_id != '' }}
+      run: |
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+
+        # Track model
+        git lfs track "model_artifacts/**/*.pkl"
+        echo "*.pkl" >> .gitattributes
+
+        # Salin model dari mlruns
+        mkdir -p model_artifacts
+        cp -r MLProject/mlruns/0/${{ steps.get_run_id.outputs.run_id }}/artifacts/model model_artifacts/
+
+        git add .gitattributes
+        git add model_artifacts/
+        git commit -m "Add model to LFS from run ${{ steps.get_run_id.outputs.run_id }}"
+
+        # Push ke branch baru
+        git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+        git push origin HEAD:lfs-model-${{ steps.get_run_id.outputs.run_id }}
 
     - name: Build Docker image
       if: ${{ steps.get_run_id.outputs.run_id != '' }}
