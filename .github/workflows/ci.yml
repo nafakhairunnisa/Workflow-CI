@@ -65,7 +65,6 @@ jobs:
           --model-uri runs:/${{ steps.get_run_id.outputs.run_id }}/model \
           --name behavior-classifier
 
-
     - name: Login to Docker Hub
       run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
     
