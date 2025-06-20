@@ -87,6 +87,9 @@ jobs:
 
         # Update remote dengan autentikasi token
         git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }}.git
+        
+        # Hapus credential internal GitHub Actions (override)
+        git config --unset-all http.https://github.com/.extraheader
 
         # Push ke branch baru
         git push origin HEAD:lfs-model-${{ steps.get_run_id.outputs.run_id }}
