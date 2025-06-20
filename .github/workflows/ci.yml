@@ -100,7 +100,7 @@ jobs:
     - name: Auto-merge Pull Request
       if: steps.cpr.outputs.pull-request-number != ''
       run: |
-        gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash --merge
+        gh pr merge ${{ steps.cpr.outputs.pull-request-number }} --squash
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
