@@ -1,9 +1,6 @@
 name: CI MLflow
 
 on:
-  push:
-    paths:
-      - 'MLProject/**'
   workflow_dispatch:
 
 jobs:
