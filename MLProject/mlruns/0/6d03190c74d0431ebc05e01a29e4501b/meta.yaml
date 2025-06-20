@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/6d03190c74d0431ebc05e01a29e4501b/artifacts
+end_time: 1750420610971
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6d03190c74d0431ebc05e01a29e4501b
+run_name: efficient-yak-801
+run_uuid: 6d03190c74d0431ebc05e01a29e4501b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420558036
+status: 3
+tags: []
+user_id: runner
