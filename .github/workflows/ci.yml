@@ -60,6 +60,11 @@ jobs:
         git config --global user.name "github-actions"
         git config --global user.email "github-actions@github.com"
 
+    - name: Debug Git Remote
+      run: |
+        git remote -v
+        git config --list
+
     - name: Track and commit model to Github LFS branch
       if: ${{ steps.get_run_id.outputs.run_id != '' }}
       run: |
