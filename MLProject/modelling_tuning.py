@@ -1,5 +1,5 @@
 import mlflow
-from sklearn.metrics import classification_report, roc_auc_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
+from sklearn.metrics import classification_report, roc_auc_score, f1_score, confusion_matrix, ConfusionMatrixDisplay, log_loss
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
@@ -42,7 +42,8 @@ def log_metrics(y_true, y_pred):
         'f1_weighted': report['weighted avg']['f1-score'],
         'roc_auc': roc_auc_score(y_true, y_pred),
         'precision_class0': report['0']['precision'],
-        'recall_class1': report['1']['recall']
+        'recall_class1': report['1']['recall'],
+        'log_loss': log_loss(y_true, y_pred, labels=[0, 1])
     }
     mlflow.log_metrics(metrics)
     mlflow.log_dict(report, "classification_report.json")
