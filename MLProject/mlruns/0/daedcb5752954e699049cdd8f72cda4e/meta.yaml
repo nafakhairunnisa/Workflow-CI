@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/daedcb5752954e699049cdd8f72cda4e/artifacts
+end_time: 1750420594623
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: daedcb5752954e699049cdd8f72cda4e
+run_name: powerful-snipe-899
+run_uuid: daedcb5752954e699049cdd8f72cda4e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420542113
+status: 3
+tags: []
+user_id: runner
