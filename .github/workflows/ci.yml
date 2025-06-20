@@ -112,7 +112,6 @@ jobs:
           --model-uri model_artifacts/model \
           --name behavior-classifier
 
-
     - name: Login to Docker Hub
       run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
     
