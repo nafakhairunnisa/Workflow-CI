@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/9c21f4018d434cb58395b405dd11e60e/artifacts
+end_time: 1750420303927
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 9c21f4018d434cb58395b405dd11e60e
+run_name: inquisitive-snake-52
+run_uuid: 9c21f4018d434cb58395b405dd11e60e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420255075
+status: 3
+tags: []
+user_id: runner
