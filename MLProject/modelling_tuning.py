@@ -8,6 +8,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 import argparse
+import joblib
 
 load_dotenv()
 
@@ -76,6 +77,11 @@ if __name__ == "__main__":
         y_pred = best_model.predict(X_test)
         log_metrics(y_test, y_pred)
         mlflow.sklearn.log_model(best_model, "model")
+
+        # Save model locally and log as artifact
+        model_path = "rf_model_tuned.joblib"
+        joblib.dump(best_model, model_path)
+        mlflow.log_artifact(model_path)
 
         print(f"Tuned RF - F1 Weighted: {f1_score(y_test, y_pred, average='weighted'):.4f}")
 
