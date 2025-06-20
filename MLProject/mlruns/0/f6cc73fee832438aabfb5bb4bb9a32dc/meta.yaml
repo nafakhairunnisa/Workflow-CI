@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/f6cc73fee832438aabfb5bb4bb9a32dc/artifacts
+end_time: 1750420164109
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f6cc73fee832438aabfb5bb4bb9a32dc
+run_name: selective-kite-121
+run_uuid: f6cc73fee832438aabfb5bb4bb9a32dc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420114517
+status: 3
+tags: []
+user_id: runner
