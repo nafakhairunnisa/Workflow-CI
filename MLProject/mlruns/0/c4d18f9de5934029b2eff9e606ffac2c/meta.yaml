@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/c4d18f9de5934029b2eff9e606ffac2c/artifacts
+end_time: 1750420461550
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c4d18f9de5934029b2eff9e606ffac2c
+run_name: peaceful-ram-30
+run_uuid: c4d18f9de5934029b2eff9e606ffac2c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420412170
+status: 3
+tags: []
+user_id: runner
