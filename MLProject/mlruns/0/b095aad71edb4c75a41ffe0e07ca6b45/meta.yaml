@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/b095aad71edb4c75a41ffe0e07ca6b45/artifacts
+end_time: 1750420765508
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b095aad71edb4c75a41ffe0e07ca6b45
+run_name: luminous-hound-472
+run_uuid: b095aad71edb4c75a41ffe0e07ca6b45
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420713892
+status: 3
+tags: []
+user_id: runner
