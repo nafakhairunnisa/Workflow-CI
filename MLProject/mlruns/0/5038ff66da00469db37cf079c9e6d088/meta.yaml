@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/5038ff66da00469db37cf079c9e6d088/artifacts
+end_time: 1750420587666
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5038ff66da00469db37cf079c9e6d088
+run_name: legendary-cod-208
+run_uuid: 5038ff66da00469db37cf079c9e6d088
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420535010
+status: 3
+tags: []
+user_id: runner
