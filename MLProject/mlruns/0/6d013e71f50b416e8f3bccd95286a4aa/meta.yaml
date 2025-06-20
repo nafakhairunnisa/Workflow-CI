@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/6d013e71f50b416e8f3bccd95286a4aa/artifacts
+end_time: 1750420018361
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6d013e71f50b416e8f3bccd95286a4aa
+run_name: sassy-smelt-998
+run_uuid: 6d013e71f50b416e8f3bccd95286a4aa
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750419964912
+status: 3
+tags: []
+user_id: runner
