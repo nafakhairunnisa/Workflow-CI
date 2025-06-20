@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/dc5108c9d0f747ceaf8acb14e0d98e69/artifacts
+end_time: 1750420623202
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: dc5108c9d0f747ceaf8acb14e0d98e69
+run_name: efficient-fawn-979
+run_uuid: dc5108c9d0f747ceaf8acb14e0d98e69
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420570893
+status: 3
+tags: []
+user_id: runner
