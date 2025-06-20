@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/69321a2623334ef09c4fe6857c07ccf8/artifacts
+end_time: 1750420299289
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 69321a2623334ef09c4fe6857c07ccf8
+run_name: luminous-fly-286
+run_uuid: 69321a2623334ef09c4fe6857c07ccf8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420248699
+status: 3
+tags: []
+user_id: runner
