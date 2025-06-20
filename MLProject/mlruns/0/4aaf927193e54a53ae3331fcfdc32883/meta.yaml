@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/4aaf927193e54a53ae3331fcfdc32883/artifacts
+end_time: 1750420156327
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4aaf927193e54a53ae3331fcfdc32883
+run_name: calm-kit-422
+run_uuid: 4aaf927193e54a53ae3331fcfdc32883
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420103205
+status: 3
+tags: []
+user_id: runner
