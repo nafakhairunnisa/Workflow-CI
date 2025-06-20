@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/24f971995b7b4eb3a451e652405b3098/artifacts
+end_time: 1750420758634
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 24f971995b7b4eb3a451e652405b3098
+run_name: popular-slug-540
+run_uuid: 24f971995b7b4eb3a451e652405b3098
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420705630
+status: 3
+tags: []
+user_id: runner
