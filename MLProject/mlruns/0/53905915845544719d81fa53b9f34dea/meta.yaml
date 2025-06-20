@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/53905915845544719d81fa53b9f34dea/artifacts
+end_time: 1750420785433
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 53905915845544719d81fa53b9f34dea
+run_name: resilient-fawn-769
+run_uuid: 53905915845544719d81fa53b9f34dea
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420735630
+status: 3
+tags: []
+user_id: runner
