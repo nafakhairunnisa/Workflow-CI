@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/Workflow-CI/Workflow-CI/MLProject/mlruns/0/83437348eec2440f8562fcc30c0de0cc/artifacts
+end_time: 1750420607008
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 83437348eec2440f8562fcc30c0de0cc
+run_name: delightful-loon-603
+run_uuid: 83437348eec2440f8562fcc30c0de0cc
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750420554071
+status: 3
+tags: []
+user_id: runner
