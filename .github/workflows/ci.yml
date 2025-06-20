@@ -58,6 +58,7 @@ jobs:
       run: |
         git remote -v
         git config --list
+        ls -R model_artifacts/
 
     - name: Upload to GitHub branch
       if: ${{ steps.get_run_id.outputs.run_id != '' }}
@@ -86,7 +87,7 @@ jobs:
 
     - name: Install GitHub CLI
       run: sudo apt install gh -y
-      
+
     - name: Create Pull Request
       id: cpr
       uses: peter-evans/create-pull-request@v6
@@ -110,10 +111,10 @@ jobs:
       if: ${{ steps.get_run_id.outputs.run_id != '' }}
       shell: bash -l {0}
       run: |
-        cd MLProject
         mlflow models build-docker \
-          --model-uri runs:/${{ steps.get_run_id.outputs.run_id }}/model \
+          --model-uri model_artifacts/model \
           --name behavior-classifier
+
 
     - name: Login to Docker Hub
       run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
